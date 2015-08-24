@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+/*list*/
+.bug_item{height:90px;display:block;position:relative;overflow:hidden;padding:10px;-webkit-transition:all ease .2s;}
+	.bug_item:hover{background:#FAFAFA;}
+	.bug_item:after{width:100%;height:1px;position:absolute;background:#D7D7D7;left:0;bottom:0;content:"";}
+	.bug_item div{position:relative;z-index:1;}
+		.bug_item .bug_pic{width:64px;height:90px;position:absolute;right:10px;top:10px;background-size:cover;background-position:center center;background-repeat:no-repeat;/*border-left:1px solid #D20000;*/}
+		.bug_no{font-family:Georgia, "Trebuchet MS";margin-right:84px;}
+		.bug_desc{height:36px;margin:5px 84px 5px 0;font-size:12px;text-overflow:ellipsis;overflow:hidden;color:#B53B3B;}
+		.bug_device{color:#9B9B9B;}
+		.bug_item .bug_state{position:absolute;top:10px;right:84px;color:#B53B3B;}
+		.bug_item .bug_solvedate{font-size:12px;position:absolute;bottom:10px;right:10px;}
+	.solving{}
+		.solving div, .solving .bug_no, .solving .bug_state{border-color:#FFFFFF;}
+	.solved{}
+		.solved div, .solved .bug_no, .solved .bug_state{color:#9B9B9B;border-color:#9B9B9B;}
+
+	.filter{height:40px;line-height:40px;display:-webkit-box;display:box;border-left:1px solid #D7D7D7;}
+		.filter_blk{-webkit-box-flex:1;box-flex:1;}
+			.filter select{width:100%;height:40px;line-height:40px;border-left:none;border-color:#D7D7D7;line-height:40px;background:none;padding:0 10px;color:#9B9B9B;}
+.nocontent{width:100%;height:200px;background:url(../img/bow.png) no-repeat center;}
+
+/*arrow*/
+.show .top_bar{font-family:Georgia, "Trebuchet MS";}
+.slideshow{width:100%;padding-top:100%;position:relative;overflow:hidden;background:#DCDCDC;}
+	.slideimg{height:100%;position:absolute;top:0;left:0;}
+		.slideimg li{width:320px;height:100%;position:relative;float:left;}
+		.slideimg img{width:100%;display:block;position:absolute;top:50%;left:0;-webkit-transform:translateY(-50%);transform:translateY(-50%);}
+	.slidenavi{position:absolute;left:50%;bottom:10px;z-index:1;-webkit-transform:translateX(-50%);transform:translateX(-50%);}
+		.slidenavi li{width:4px;height:4px;border-radius:4px;float:left;background:#FFFFFF;border:1px solid #D20000;margin:0 3px;opacity:0.5;}
+		.slidenavi .cur{background:#D20000;}
+.slide_scale{width:100%;height:100%;padding:0;position:absolute;z-index:10;top:0;left:0;overflow:auto;}
+
+.descwhole{font-size:12px;padding:10px;border-bottom:1px solid #DCDCDC;}
+.detail{padding:10px;font-size:12px;border-bottom:1px solid #DCDCDC;}
+	.detail_visual p, .detail li{width:49%;display:inline-block;}
+	.detail span{display:inline-block;}
+	.detail_title{width:56px;text-align:right;color:#B6B6B6;margin-right:5px;}
+	.detail_ua p{min-height:18px;position:relative;padding-left:66px;}
+		.detail_ua .detail_title{position:absolute;top:0;left:0;}
+
+.solvesec{padding:10px;}
+	.solveblk{margin-bottom:10px;}
+	.solvesec_header{width:70px;display:inline-block;margin-right:10px;}
+	.solvesec select{background:none;border-radius:3px;}
+
+	.owner{}
+		.owner .owner_input{display:none;}
+		.owner_fill .owner_input{display:inline-block;}
+
+	.solvestate{padding-bottom:10px;}
+	.solvemethod{width:100%;min-height:18px;border:none;padding-bottom:10px;position:relative;-webkit-box-sizing:border-box;box-sizing:border-box;}
+		.solvemethod_header{margin-bottom:5px;position:absolute;top:0;left:0;}
+		.solvemethod_text{border-bottom:1px solid #D20000;margin-left:80px;}
+
+	.solvesec .input_s{width:140px;border:none;border-bottom:1px solid #D20000;background:none;padding:0 10px;}
+
+	.solver{padding-left:84px;position:relative;}
+		.solver .solvesec_header{position:absolute;top:0;left:0;}
+		.solver .solver_input{display:none;}
+		.solver_fill .solver_input{display:inline-block;}
+
+.submit_btn{width:90%;height:42px;line-height:42px;display:block;color:#FFFFFF;background:#D20000;border:none;border-radius:5px;-webkit-appearance:none;margin:10px auto 0;}
+
+.show .loading{width:100%;height:100%;position:fixed;top:50px;left:0;z-index:10;background-color:rgba(255,255,255,0.9);margin:0;padding:0;background-size:100px auto;}

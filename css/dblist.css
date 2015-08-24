@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+.dblist{width:100%;text-align:center;line-height:30px;}
+	.dblist th, .dblist td{width:25%;}
+	.dblist th{border-bottom:1px solid #D20000;padding:5px 0;}
+	.dblist td{padding:5px 0;border-bottom:1px solid #D7D7D7;}
+	.dblist tr:nth-child(2n+1){background:#EAEAEA;}
+	.dblist_value{width:80%;border:none;background:none;text-align:center;padding:5px;}
+	.editable .dblist_value{border:1px solid #D20000;border-radius:2px;background:#FFFFFF;text-align:left;}
+	.dbbtn, .dbbtn_s{height:24px;display:inline-block;padding:0 10px;border-radius:2px;background:#D7D7D7;margin:0 3px;-webkit-appearance:none;border:none;}
+		.dbbtn_add{margin:10px 10px 10px auto;}
+	.dbbtn_save, .editable .dbbtn_modify, .dblist_value, .editable .dblist_text{display:none;}
+	.editable .dbbtn_save, .dbbtn_modify, .editable .dblist_value, .dblist_text{display:inline-block;}
+
+.dblist_ft{text-align:right;}
