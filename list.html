@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8" />
+	<title>移动端bug跟踪系统</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" type="text/css" href="css/gb.css" />
+    <link rel="stylesheet" type="text/css" href="css/list.css" />
+</head>
+<!-- 注：加ontouchstart使css：active生效 -->
+<body ontouchstart="">
+    <h1 class="top_bar"><i></i>移动端bug跟踪系统</h1>
+    <form class="search_label">
+        <input class="search" type="text" placeholder="请输入bug编号" />
+        <button type="button" class="search_btn">搜索</button>
+    </form>
+    <div class="filter">
+        <div class="filter_blk">
+            <select id="filter_dev">
+                <option value="all" id="filterDev_all">所有开发者</option>
+            </select>
+        </div>
+        <div class="filter_blk">
+            <select id="filter_solvestate">
+                <option value="all" id="filterSta_all">所有状态</option>
+                <option value="-1" id="filterSta_-1">未解决</option>
+                <option value="0" id="filterSta_0">解决中</option>
+                <option value="1" id="filterSta_1">已解决</option>
+            </select>
+        </div>
+    </div>
+    <div class="cont">
+        <div class="loading"></div>
+        <!-- 解决中 solving
+        已解决 solved -->
+        <!-- <a href="#" class="bug_item">
+            <div class="bug_pic" style="background-image:url(http://img.qiang.it/640);"></div>
+            <p class="bug_no">No.<span>20150619-1525</span></p>
+            <p class="bug_desc">描述啊啊啊啊啊啊啊啊迷失哦啊胡描述啊啊啊啊啊啊啊啊迷失哦啊胡描述啊啊啊啊啊啊啊啊迷失哦啊胡描述啊啊啊啊啊啊啊啊迷失哦啊胡描述啊啊啊啊啊啊啊啊迷失哦啊胡</p>
+            <p class="bug_device">Android</p>
+            <p class="bug_solvedate">2015-06-22 17:15:22</p>
+            <p class="bug_state">待解决</p>
+        </a>
+        <a href="#" class="bug_item solving">
+            <div class="bug_pic"><img src="http://img.qiang.it/640" /></div>
+            <p class="bug_no">No.<span>20150619-1525</span></p>
+            <p class="bug_desc">描述啊啊啊啊啊啊啊啊迷失哦啊胡</p>
+            <p class="bug_device">iPhone</p>
+            <p class="bug_solvedate">2015-06-22 17:15:22</p>
+            <p class="bug_state solving">解决中</p>
+        </a>
+        <a href="#" class="bug_item solved">
+            <div class="bug_pic"><img src="http://img.qiang.it/640" /></div>
+            <p class="bug_no">No.<span>20150619-1525</span></p>
+            <p class="bug_desc">描述啊啊啊啊啊啊啊啊迷失哦啊胡</p>
+            <p class="bug_device">Android</p>
+            <p class="bug_solvedate">2015-06-22 17:15:22</p>
+            <p class="bug_state solving">已解决</p>
+        </a> -->
+    </div>
+
+    <script src="js/zepto.js"></script>
+	<script src="js/getData.js"></script>
+    <script src="js/objeq.min.js"></script>
+
+    <script>
+    $(function(exports, P){
+        //
+        var dataBox = {
+            //数据源
+            getDataUrl : 'http://db.qiang.it/api.php?',
+            //业务名称
+            dataXn : 'mobilebugs',
+            //开发者数据库名
+            idDb : 'bugidlist' ,
+            //展示页链接
+            showUrl : 'arrow.html', 
+            tpl : ['<a href="{itemUrl}" class="bug_item{bugstate}">',
+                        '<div class="bug_pic" style="background-image:url({pics});"></div>', 
+                        '<div class="bug_no">No.<span>{itemNo}</span></div>', 
+                        '<div class="bug_desc">{bugdesc}</div>', 
+                        '<div class="bug_device">{devicename}</div>', 
+                        //'<div class="bug_solvedate">{solvedate}</div>', 
+                        '<div class="bug_state" data-solver="{solvervalue}" data-solvestate="{statevalue}">{solver}{solvestate}</div>', 
+                    '</a>'].join(''), 
+            searchKey : ['key', 'uid', 'solvestate'], 
+            searchBtn : $('.search_btn'), 
+            uidKey : 'uid', 
+            solverFilter : $('#filter_dev'), 
+            solvestateFilter : $('#filter_solvestate'), 
+
+            bugquery : function(key, uid, solvestate){
+                var data = this.dataBox;
+                var query;
+                var dataTemp = data;
+
+                if(key){
+                    var queryString = "'^"+key+"' =~ itemNo";
+                    query = $objeq(queryString);
+                    dataTemp = query(data);
+                }
+
+                data = dataTemp;
+
+                if(uid){
+                    var queryString = "'^"+uid+"' =~ solvervalue";
+                    query = $objeq(queryString);
+                    dataTemp = query(data);
+                }
+
+                data = dataTemp;
+
+                if(solvestate){
+                    var queryString = "'^"+solvestate+"' =~ statevalue";
+                    query = $objeq(queryString);
+                    dataTemp = query(data);
+                }
+
+                data = dataTemp;
+
+                return data;
+            }
+        }
+
+        DATAGET = $.extend(DATAGET, dataBox);
+        DATAGET.init();
+
+        // Import the objeq Library
+        //var $objeq = require('objeq');
+
+        // Create a data Array to be queried later
+        var data = [
+          { name: 'Barbara', age: 25, gender: 'female' },
+          { name: 'Ronald', age: 62, gender: 'male' },
+          { name: 'Robert', age: 54, gender: 'male' },
+          { name: 'Jessica', age: 48, gender: 'female' }
+        ];
+
+        // This will compile an objeq query that filters only those
+        // Objects having a name property starting with 'Ro' and then
+        // returns a string that combines name and age properties
+        var query = $objeq("'^Ro' =~ name -> name + ' is ' + age");
+
+        // This performs the query against the 'data' Array and
+        // returns the result in 'res'
+        var res = query(data);
+        //console.log(res);
+
+        // --> res now contains:
+        //  [ 'Ronald is 62 years old',
+        //    'Robert is 54 years old' ]
+    });
+    </script>
+</body>
+</html>
