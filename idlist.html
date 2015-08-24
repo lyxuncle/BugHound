@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8" />
+	<title>移动端bug跟踪系统</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" type="text/css" href="css/gb.css" />
+    <link rel="stylesheet" type="text/css" href="css/dblist.css" />
+</head>
+<!-- 注：加ontouchstart使css：active生效 -->
+<body ontouchstart="">
+    <h1 class="top_bar"><i></i>移动端bug跟踪系统</h1>
+    <form class="search_label">
+        <input class="search" type="text" placeholder="" />
+        <button type="button" class="search_btn">搜索</button>
+    </form>
+    <div class="cont">
+        <table class="dblist">
+            <thead>
+                <th>用户id</th>
+                <th>用户名</th>
+                <th>erp帐号</th>
+                <th><!-- <button class="dbbtn">批量修改</button> --></th>
+            </thead>
+            <tbody>
+                <!-- <tr id="listItem_00001" data-id=00001>
+                    <td>00001</td>
+                    <td><span class="dblist_text">EC</span><input type="text" value="EC" class="dblist_value" /></td>
+                    <td><span class="dblist_text">liyixin5</span><input type="text" value="liyixin5" class="dblist_value" /></td>
+                    <td><button class="dbbtn_s dbbtn_save" data-id=00001 data-func="save">保存</button><button class="dbbtn_s dbbtn_modify" data-id=00001 data-func="modify">修改</button><button class="dbbtn_s dbbtn_delete" data-id=00001 data-func="delete">删除</button></td>
+                </tr>
+                <tr id="listItem_00002" data-id=00002>
+                    <td>00002</td>
+                    <td><span class="dblist_text">EC</span><input type="text" value="EC" class="dblist_value" /></td>
+                    <td><span class="dblist_text">liyixin5</span><input type="text" value="liyixin5" class="dblist_value" /></td>
+                    <td><button class="dbbtn_s dbbtn_save" data-id=00001 data-func="save">保存</button><button class="dbbtn_s dbbtn_modify" data-id=00001 data-func="modify">修改</button><button class="dbbtn_s dbbtn_delete" data-id=00001 data-func="delete">删除</button></td>
+                </tr> -->
+            </tbody>
+        </table>
+        <div class="loading"></div>
+        <div class="dblist_ft">
+            <button class="dbbtn dbbtn_add">添加</button>
+        </div>
+    </div>
+
+    <script src="js/zepto.js"></script>
+    <script src="js/uploadList.js"></script>
+    <script>
+        $(function(exports, P){
+            var dataBox = {
+                //数据源
+                getDataUrl : 'http://db.qiang.it/api.php?',
+                //业务名称
+                dataXn : 'bugidlist', 
+                //数据展示模板
+                tpl : ['<tr id="listItem_{uid}" data-id={uid}><td id="uidcont_{uid}">{uid}</td>', 
+                    '<td><span class="dblist_text">{uname}</span><input type="text" value="{uname}" class="dblist_value" /></td>', 
+                    '<td><span class="dblist_text">{uerp}</span><input type="text" value="{uerp}" class="dblist_value" /></td>', 
+                    '<td><button class="dbbtn_s dbbtn_save" data-id={uid} data-func="save">保存</button><button class="dbbtn_s dbbtn_modify" data-id={uid} data-func="modify">修改</button><button class="dbbtn_s dbbtn_delete" data-id={uid} data-func="delete">删除</button></td></tr>'].join(''), 
+                //列表容器
+                list : $('.dblist tbody'), 
+                //添加按钮
+                addBtn : $('.dbbtn_add'), 
+                //修改按钮
+                modiBtn : $('.dbbtn_modify'), 
+                //保存按钮
+                saveBtn : $('.dbbtn_save'), 
+                //删除按钮
+                deleBtn : $('.dbbtn_delet')
+            }
+
+            LISTSHOW = $.extend(LISTSHOW, dataBox);
+            LISTSHOW.init();
+        });
+    </script>
+</body>
+</html>

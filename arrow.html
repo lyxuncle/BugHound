@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8" />
+	<title>移动端bug跟踪系统</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" type="text/css" href="css/gb.css" />
+    <link rel="stylesheet" type="text/css" href="css/list.css" />
+</head>
+<!-- 注：加ontouchstart使css：active生效 -->
+<body class="show" ontouchstart="">
+    <h1 class="top_bar"><i></i>No.<span class="num"></span></h1>
+    <div class="cont">
+        <div class="loading"></div>
+        <div class="slideshow">
+            <ul class="slideimg" style="width:2000px;">
+                <!-- <li style="width:320px;"><img src="http://img.qiang.it/640" /></li>
+                <li style="width:320px;"><img src="http://img.qiang.it/640" /></li>
+                <li style="width:320px;"><img src="http://img.qiang.it/640" /></li> -->
+            </ul>
+            <ul class="slidenavi">
+                <!-- <li class="cur"></li>
+                <li></li>
+                <li></li> -->
+            </ul>
+        </div>
+        <div class="descwhole"></div>
+        <div class="detail">
+            <div class="detail_visual">
+                <p><span class="detail_title">尺寸</span><span id="size" class="detail_info"></span></p>
+                <p><span class="detail_title">dpr</span><span id="dpr" class="detail_info"></span></p>
+            </div>
+            <ul>
+                <li><span class="detail_title">浏览器</span><span id="browser" class="detail_info"></span></li>
+                <li><span class="detail_title">引擎</span><span id="engine" class="detail_info"></span></li>
+                <li><span class="detail_title">系统</span><span id="os" class="detail_info"></span></li>
+                <li><span class="detail_title">设备</span><span id="device" class="detail_info"></span></li>
+                <li><span class="detail_title">CPU</span><span id="cpu" class="detail_info"></span></li>
+                <li><span class="detail_title">网络环境</span><span id="nettype" class="detail_info"></span></li>
+            </ul>
+            <div class="detail_ua">
+                <p><span class="detail_title">UA</span><span id="ua" class="detail_info"></span></p>
+            </div>
+        </div>
+
+        <form class="solve_form" action="time.php" method="post" enctype="multipart/form-data">
+            <div class="solvesec">
+                <div class="solveblk owner owner_fill">
+                    <span class="solvesec_header">设备所属人</span>
+                    <select class="owner_select">
+                        <option id="ownerSelect_00000" value="00000">其他</option>
+                    </select>
+                    <input class="input_s owner_input" type="text" />
+                </div>
+
+                <div class="solveblk solvemethod">
+                    <div class="solvemethod_header">解决方案</div>
+                    <div class="solvemethod_text" contenteditable="true"></div>
+                </div>
+
+                <div class="solveblk solvestate">
+                    <span class="solvesec_header">状态</span>
+                    <select class="solvestate_select">
+                        <option value="-1">未解决</option>
+                        <option value="0">解决中</option>
+                        <option value="1">已解决</option>
+                    </select>
+                </div>
+                
+                <div class="solveblk solver solver_fill">
+                    <span class="solvesec_header">解决者</span>
+                    <select class="solver_select">
+                        <option id="solverSelect_00000" value="00000">其他</option>
+                    </select>
+                    <input id="solvername" class="input_s solver_input" type="text" placeholder="姓名" />
+                    <input id="solvererp" class="input_s solver_input" type="text" placeholder="erp帐号" />
+                </div>
+            </div>
+            <button type="button" class="submit_btn">提交</button>
+        </form>
+    </div>
+
+    <div class="success" style="display:none;">更新成功</div>
+
+    <script src="js/zepto.js"></script>
+	<script src="js/showData.js"></script>
+    <script src="js/slideshow.js"></script>
+    <script>
+        $(function(exports, P){
+            //
+            var dataBox = {
+                //数据源
+                getDataUrl : 'http://db.qiang.it/api.php?',
+                //业务名称
+                dataXn : 'mobilebugs', 
+                //开发者数据库名
+                idDb : 'bugidlist' ,
+                //编码
+                dataXk : window.location.hash.replace(/#/, ''),
+                //编号容器
+                num : $('.num'), 
+                //图片容器
+                slideImg : $('.slideimg'), 
+                //图片导航
+                slideNavi : $('.slidenavi'), 
+                //bug描述
+                desc : $('.descwhole'), 
+                //尺寸容器
+                sizeSpan : $('#size'), 
+                //dpr容器
+                dpr : $('#dpr'), 
+                //设备信息容器
+                devDetail : $('.detail ul'), 
+                //UA信息容器
+                ua : $('#ua'), 
+                //解决方案容器
+                solvemethod : $('.solvemethod_text'), 
+                //解决状态容器
+                solvestate : $('.solvestate_select'), 
+                //解决者容器
+                solver: $('.solver'), 
+                solvername : $('#solvername'), 
+                solvererp : $('#solvererp'), 
+                solverSelect : $('.solver_select'), 
+                //提交按钮
+                submitBtn : $('.submit_btn'), 
+                //服务端时间获取链接
+                timeurl: $('.solve_form').attr('action')
+            }
+
+            DATASHOW = $.extend(DATASHOW, dataBox);
+            DATASHOW.init();
+
+            var slideBox = {
+                //轮播图容器
+                slideWin : $('.slideimg'),
+                //轮播图导航
+                slideNavi : $('.slidenavi')
+            }
+
+            SLIDESHOW = $.extend(SLIDESHOW, slideBox);
+        });
+    </script>
+</body>
+</html>
